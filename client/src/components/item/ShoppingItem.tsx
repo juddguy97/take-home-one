@@ -4,18 +4,26 @@ interface ShoppingItemProps {
     product: ListItem;
 }
 
+/**
+ * This component will take a ListItem as a prop and display
+ * the data in the item card format.
+ */
 function ShoppingItem(props: ShoppingItemProps) {
     const { product } = props;
     return (
         <div className="item-card">
-            {product.isSale && <div className='item-sale'><span>On Sale!</span></div>}
-            <div className='item-image'>
+            {product.isSale && (
+                <div className="item-sale">
+                    <span>On Sale!</span>
+                </div>
+            )}
+            <div className="item-image">
                 <img
                     src={require(`../../assets/images/${product.productImage}`)}
                     alt=""
                 />
             </div>
-            <div className='item-details'>
+            <div className="item-details">
                 <h1>{product.productName}</h1>
                 <h2>{product.price}</h2>
             </div>
