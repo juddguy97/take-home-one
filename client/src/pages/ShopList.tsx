@@ -5,9 +5,17 @@ import SearchBar from '../components/search/SearchBar';
 function ShopListPage() {
     return (
         <>
-            <SearchBar />
-            <Filter />
-            <ShoppingGrid />
+            <div className='container'>
+                <div>
+                    <SearchBar />
+                </div>
+                <div>
+                    <Filter />
+                </div>
+                <div>
+                    <ShoppingGrid />
+                </div>
+            </div>
         </>
     );
 }

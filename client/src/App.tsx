@@ -1,5 +1,5 @@
 import React from 'react';
-import './App.css';
+import '../src/sass/App.scss';
 import ShopListPage from './pages/ShopList';
 
 function App() {
