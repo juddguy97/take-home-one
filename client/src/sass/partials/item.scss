@@ -1,0 +1,29 @@
+.item-card {
+    width: 300px;
+    border-width: 1px;
+    border-style: solid;
+    background-color: gold;
+
+    .item-sale {
+        position: absolute;
+        color: white;
+        font-weight: bold;
+        background-color: red;
+        padding: 3px 10px;
+    }
+
+    .item-image {
+        background-color: white;
+        padding: 10px;
+        border-bottom-width: 1px;
+        border-bottom-style: solid;
+        img {
+            width: 100%;
+            height: 350px;
+
+        }
+    }
+    .item-details {
+        padding: 20px 10px;
+    }
+}

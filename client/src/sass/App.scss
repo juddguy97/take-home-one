@@ -4,12 +4,13 @@
 @import 'partials/grid';
 @import 'partials/shopListPage';
 
+body {
+    padding: 0 10%;
+    background-image: linear-gradient(red, black);;
+}
 @media screen and (max-width: 1000px) {
     body {
-      padding: 20% 0;
+        padding: 0 0;
     }
- }
+}
 
- body {
-    padding: 0 10%;
-  }
