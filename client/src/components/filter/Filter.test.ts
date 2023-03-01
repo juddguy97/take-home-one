@@ -1,1 +1,1 @@
-import {searchProducts} from '../search/SearchBar';
+import { searchProducts } from '../search/SearchBar';

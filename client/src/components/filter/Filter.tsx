@@ -16,9 +16,7 @@ function Filter() {
                 <input
                     type="range"
                     step={5}
-                    onChange={(e) =>
-                        setPriceMin(e.target.value as unknown as number)
-                    }
+                    onChange={(e) => setPriceMin(parseFloat(e.target.value))}
                     max={priceMax}
                 />{' '}
                 {priceMin}
@@ -26,9 +24,7 @@ function Filter() {
                 <input
                     type="range"
                     step={5}
-                    onChange={(e) =>
-                        setPriceMax(e.target.value as unknown as number)
-                    }
+                    onChange={(e) => setPriceMax(parseFloat(e.target.value))}
                     min={priceMin}
                 />{' '}
                 {priceMax}

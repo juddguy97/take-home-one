@@ -4,7 +4,5 @@ export interface ListItem {
     price: string;
     productImage: string;
     productName: string;
-    type: DrinkTypes
+    type: 'Beer' | 'Wine' | 'Spirits' | 'Cider';
 }
-
-export enum DrinkTypes {'Beer', 'Wine', 'Spirits', 'Cider'};

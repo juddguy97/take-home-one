@@ -14,9 +14,9 @@ function ShoppingGrid(props: ShoppingGridProps) {
     const { products } = props;
     return (
         <div className="shopping-grid">
-            {products.map((product: ListItem) => (
+            {products.length > 0 ? products.map((product: ListItem) => (
                 <ShoppingItem product={product} />
-            ))}
+            )) : <h2>No Results Found</h2>}
         </div>
     );
 }
