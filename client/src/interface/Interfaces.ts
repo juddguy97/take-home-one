@@ -4,5 +4,8 @@ export interface ListItem {
     price: string;
     productImage: string;
     productName: string;
-    type: 'Beer' | 'Wine' | 'Spirits' | 'Cider';
+    type: DrinkTypes;
 }
+
+export const drinkTypes = ['Beer' , 'Wine' , 'Spirits' , 'Cider'];
+export type DrinkTypes = typeof drinkTypes[number];
