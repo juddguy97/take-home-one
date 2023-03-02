@@ -53,15 +53,34 @@ export function filterByDrinks(drinks: DrinkTypes[], products: ListItem[]) {
 /**
  * This function will apply all filters to the product list.
  * @param criteria The combined filters
+ * @param applyPriceRange boolean for whether price range is applied
  * @param products list of products
  * @returns the products that match all of the filters specified
  */
 export function applyAllFilters(
     criteria: ApplicableFilters,
-    priceRange: boolean,
+    applyPriceRange: boolean,
     products: ListItem[]
 ) {
-    if (Object.keys(criteria).length === 0) return products;
+    const productsInPriceRange = filterByPrice(
+        criteria.maxPrice,
+        criteria.minPrice,
+        products
+    );
+    const productsOnSale = filterBySale(true, products);
+    const productsByDrinks = filterByDrinks(criteria.drinks, products);
+    return products
+        .filter((product) =>
+            applyPriceRange ? productsInPriceRange.includes(product) : product
+        )
+        .filter((product) =>
+            criteria.drinks.length > 0
+                ? productsByDrinks.includes(product)
+                : product
+        )
+        .filter((product) =>
+            criteria.onSale ? productsOnSale.includes(product) : product
+        );
 }
 
 /**

@@ -53,7 +53,7 @@ test('Filter by price range of where max is greater than mine"', () => {
 
 // Tests for the applyAllFilters will use this 'testAllFilter' to capture variations
 const testAllFilter: ApplicableFilters = {
-    maxPrice: 20,
+    maxPrice: 50,
     minPrice: 0,
     drinks: ['Beer'],
     onSale: false,
@@ -74,30 +74,52 @@ test('Filter with price range and drink types', () => {
     );
 });
 
-// Setting the onSale to true
-testAllFilter.onSale = true;
+// Creating filter for on sale
+const testAllFilterOnSale: ApplicableFilters = {
+  maxPrice: 50,
+  minPrice: 0,
+  drinks: ['Beer'],
+  onSale: true,
+};
+
+test('Filter with drink type and sale (without price range)', () => {
+  expect(applyAllFilters(testAllFilterOnSale, false, products)).toEqual(
+    productsBeer.filter((product) => productsOnSale.includes(product))
+  );
+});
 
 test('Filter with price range, drink type and sale', () => {
-    expect(applyAllFilters(testAllFilter, true, products)).toEqual(
+    expect(applyAllFilters(testAllFilterOnSale, true, products)).toEqual(
         productsOnSale
             .filter((product) => productsBeer.includes(product))
             .filter((product) => productsInPriceRange.includes(product))
     );
 });
 
-// setting drinks to empty
-testAllFilter.drinks = [];
+// Setting drinks to empty
+const testAllFilterNoDrinks: ApplicableFilters = {
+  maxPrice: 50,
+  minPrice: 0,
+  drinks: [],
+  onSale: true,
+};
 
 test('Filter with price range and sale', () => {
-    expect(applyAllFilters(testAllFilter, true, products)).toEqual(
+    expect(applyAllFilters(testAllFilterNoDrinks, true, products)).toEqual(
         productsOnSale.filter((product) =>
             productsInPriceRange.includes(product)
         )
     );
 });
 
-test('Filter with drink type and sale (without price range)', () => {
-    expect(applyAllFilters(testAllFilter, false, products)).toEqual(
-        productsOnSale.filter((product) => productsBeer.includes(product))
-    );
+// Setting a full range price, no drink types and onSale is false
+const testAllFilterNoFilters: ApplicableFilters = {
+  maxPrice: 100,
+  minPrice: 0,
+  drinks: [],
+  onSale: false,
+};
+
+test('No filter applied', () => {
+    expect(applyAllFilters(testAllFilterNoFilters, false, products)).toEqual(products);
 });
