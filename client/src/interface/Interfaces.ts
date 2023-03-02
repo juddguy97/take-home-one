@@ -7,5 +7,5 @@ export interface ListItem {
     type: DrinkTypes;
 }
 
-export const drinkTypes = ['Beer' , 'Wine' , 'Spirits' , 'Cider'];
-export type DrinkTypes = typeof drinkTypes[number];
+export const drinkTypes = ['Beer', 'Wine', 'Spirits', 'Cider'];
+export type DrinkTypes = (typeof drinkTypes)[number];

@@ -21,6 +21,17 @@
             display: grid;
             grid-template-columns: 'checkbox-name checkbox-input';
         }
+
+        .filter-price {
+            display: flex;
+            flex-direction: column;
+            max-height: 50px;
+            overflow: hidden;
+
+            &.filter-hidden {
+                max-height: 0;
+            }
+        }
     }
 }
 

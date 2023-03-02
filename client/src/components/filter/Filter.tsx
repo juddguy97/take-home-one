@@ -6,23 +6,25 @@ import { DrinkTypes, drinkTypes, ListItem } from '../../interface/Interfaces';
 /**
  * An interface for capturing the filter types
  */
-interface ApplicableFilters {
-    maxPrice?: number;
-    minPrice?: number;
-    onSale?: boolean;
-    drinks?: DrinkTypes[];
+export interface ApplicableFilters {
+    maxPrice: number;
+    minPrice: number;
+    onSale: boolean;
+    drinks: DrinkTypes[];
 }
 
 /**
  * This function will filter the products based on a specified price range
- * Will return all products if range is invalid (ie max is less than min)
  * @param max max price to filter by
  * @param min min price to filter by
  * @param products list of products
  * @returns items from the products list with price within the specified range
  */
 export function filterByPrice(max: number, min: number, products: ListItem[]) {
-    return products;
+    return products.filter((product) => {
+        const truePrice = parseFloat(product.price.replaceAll('$', ''));
+        return truePrice < max && truePrice > min;
+    });
 }
 
 /**
@@ -32,7 +34,7 @@ export function filterByPrice(max: number, min: number, products: ListItem[]) {
  * @returns items from the products list that have sale set to 'true' or all items if set to 'false'
  */
 export function filterBySale(sale: boolean, products: ListItem[]) {
-    return products;
+    return sale ? products.filter((product) => product.isSale) : products;
 }
 
 /**
@@ -43,7 +45,9 @@ export function filterBySale(sale: boolean, products: ListItem[]) {
  * @returns items from the producst list that are contained in drinks array
  */
 export function filterByDrinks(drinks: DrinkTypes[], products: ListItem[]) {
-    return products;
+    return drinks.length === 0
+        ? products
+        : products.filter((product) => drinks.includes(product.type));
 }
 
 /**
@@ -52,8 +56,12 @@ export function filterByDrinks(drinks: DrinkTypes[], products: ListItem[]) {
  * @param products list of products
  * @returns the products that match all of the filters specified
  */
-export function applyAllFilters (criteria: ApplicableFilters, products: ListItem[]) {
-    if(Object.keys(criteria).length === 0) return products;
+export function applyAllFilters(
+    criteria: ApplicableFilters,
+    priceRange: boolean,
+    products: ListItem[]
+) {
+    if (Object.keys(criteria).length === 0) return products;
 }
 
 /**
@@ -65,9 +73,10 @@ function Filter() {
     const [priceMax, setPriceMax] = useState<number>(100);
     const [priceMin, setPriceMin] = useState<number>(0);
     const [onSale, setOnSale] = useState<boolean>(false);
+    const [applyPrice, setApplyPrice] = useState<boolean>(false);
     const priceStep = 5;
 
-    console.log(parseFloat("$25.99".replaceAll("$", "")));
+    console.log(parseFloat('$25.99'.replaceAll('$', '')));
 
     return (
         <div className="filter-container">
@@ -96,53 +105,66 @@ function Filter() {
                 className={`filter-content ${!showFilters && 'filter-hidden'} `}
             >
                 <div className="filter-item">
-                    <h3 className="title">Price</h3>
-                    <label>
-                        Minimum: ${priceMin}
+                    <h3 className="title">
+                        Price Range?
                         <input
-                            type="range"
-                            step={priceStep}
-                            onChange={(e) =>
-                                setPriceMin(parseFloat(e.target.value))
-                            }
-                            value={priceMin}
-                            max={priceMax-5}
+                            type="checkbox"
+                            checked={applyPrice}
+                            onChange={() => setApplyPrice(!applyPrice)}
                         />
-                    </label>
-                    <label>
-                        Maximum: ${priceMax}
-                        <input
-                            type="range"
-                            step={priceStep}
-                            onChange={(e) =>
-                                setPriceMax(parseFloat(e.target.value))
-                            }
-                            value={priceMax}
-                            min={priceMin+priceStep}
-                        />{' '}
-                    </label>
+                    </h3>
+                    <div
+                        className={`filter-price ${
+                            !applyPrice && 'filter-hidden'
+                        }`}
+                    >
+                        <label>
+                            Minimum: ${priceMin}
+                            <input
+                                type="range"
+                                step={priceStep}
+                                onChange={(e) =>
+                                    setPriceMin(parseFloat(e.target.value))
+                                }
+                                value={priceMin}
+                                max={priceMax - 5}
+                            />
+                        </label>
+                        <label>
+                            Maximum: ${priceMax}
+                            <input
+                                type="range"
+                                step={priceStep}
+                                onChange={(e) =>
+                                    setPriceMax(parseFloat(e.target.value))
+                                }
+                                value={priceMax}
+                                min={priceMin + priceStep}
+                            />{' '}
+                        </label>
+                    </div>
                 </div>
                 <div className="filter-item">
-                    <label>
+                    <h3 className="title">
                         On Sale?
                         <input
                             type="checkbox"
                             checked={onSale}
                             onChange={() => setOnSale(!onSale)}
                         />
-                    </label>
+                    </h3>
                 </div>
                 <div className="filter-item">
                     <h3 className="title">Drink Type?</h3>
-                    {
-                        drinkTypes.map((drink: string) => <label>
-                        <input
-                            type="checkbox"
-                            value={drink}
-                        />
-                        <span>{drink}</span>
-                        </label>)
-                    }
+                    {drinkTypes.map((drink: string) => (
+                        <label>
+                            <input
+                                type="checkbox"
+                                value={drink}
+                            />
+                            <span>{drink}</span>
+                        </label>
+                    ))}
                 </div>
             </div>
         </div>
