@@ -24,8 +24,8 @@ function ShoppingItem(props: ShoppingItemProps) {
                 />
             </div>
             <div className="item-details">
-                <h1>{product.productName}</h1>
-                <h2>{product.price}</h2>
+                <h3>{product.productName}</h3>
+                <h4>{product.price}</h4>
             </div>
         </div>
     );

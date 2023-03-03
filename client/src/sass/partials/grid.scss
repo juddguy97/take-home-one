@@ -1,7 +1,14 @@
 .shopping-grid {
-    display: flex;
+    width: 100%;
+    max-width: $large;
+    display: grid;
+    align-items: center;
+    margin-top: 30px;
     gap: 10px;
-    flex-wrap: wrap;
-    justify-content: center;
-    margin-top: 10vh;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+
+    .shopping-grid-item {
+        display: flex;
+        justify-content: center;
+    }
 }

@@ -1,9 +1,9 @@
 .filter-content {
-    -webkit-transition: max-height 1s;
-    -moz-transition: max-height 1s;
-    -ms-transition: max-height 1s;
-    -o-transition: max-height 1s;
-    transition: max-height 1s;
+    -webkit-transition: max-height 0.5s;
+    -moz-transition: max-height 0.5s;
+    -ms-transition: max-height 0.5s;
+    -o-transition: max-height 0.5s;
+    transition: max-height 0.5s;
     padding-top: 1em;
     max-height: 400px;
     overflow: hidden;
@@ -42,4 +42,14 @@
 .filter-toggle {
     cursor: pointer;
     margin: 0;
+    .rotate-180 {
+        transform: rotate(-180deg);
+        transition: transform 0.25s linear;
+    }
+    .rotate-0 {
+        transform: rotate(0deg);
+        transition: transform 0.25s linear;
+    }
 }
+
+

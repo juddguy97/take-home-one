@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { ReactComponent as UpChevron } from '../../assets/icons/chevron-up-solid.svg';
 import { ReactComponent as DownChevron } from '../../assets/icons/chevron-down-solid.svg';
 import { DrinkTypes, drinkTypes, ListItem } from '../../interface/Interfaces';
@@ -7,10 +7,16 @@ import { DrinkTypes, drinkTypes, ListItem } from '../../interface/Interfaces';
  * An interface for capturing the filter types
  */
 export interface ApplicableFilters {
+    applyPriceRange: boolean;
     maxPrice: number;
     minPrice: number;
     onSale: boolean;
     drinks: DrinkTypes[];
+}
+
+interface FilterProps {
+    products: ListItem[];
+    returnProducts: (products: ListItem[]) => void;
 }
 
 /**
@@ -59,7 +65,6 @@ export function filterByDrinks(drinks: DrinkTypes[], products: ListItem[]) {
  */
 export function applyAllFilters(
     criteria: ApplicableFilters,
-    applyPriceRange: boolean,
     products: ListItem[]
 ) {
     const productsInPriceRange = filterByPrice(
@@ -71,7 +76,9 @@ export function applyAllFilters(
     const productsByDrinks = filterByDrinks(criteria.drinks, products);
     return products
         .filter((product) =>
-            applyPriceRange ? productsInPriceRange.includes(product) : product
+            criteria.applyPriceRange
+                ? productsInPriceRange.includes(product)
+                : product
         )
         .filter((product) =>
             criteria.drinks.length > 0
@@ -87,15 +94,22 @@ export function applyAllFilters(
  * This filter component will handle all
  * the filter to be applied on the product list
  */
-function Filter() {
+function Filter(props: FilterProps) {
+    const { products, returnProducts } = props;
     const [showFilters, setShowFilters] = useState<boolean>(false);
-    const [priceMax, setPriceMax] = useState<number>(100);
-    const [priceMin, setPriceMin] = useState<number>(0);
-    const [onSale, setOnSale] = useState<boolean>(false);
     const [applyPrice, setApplyPrice] = useState<boolean>(false);
+    const [allFilters, setAllFilters] = useState<ApplicableFilters>({
+        applyPriceRange: false,
+        maxPrice: 100,
+        minPrice: 0,
+        drinks: [],
+        onSale: false,
+    });
     const priceStep = 5;
 
-    console.log(parseFloat('$25.99'.replaceAll('$', '')));
+    useEffect(() => {
+        returnProducts(applyAllFilters(allFilters, products));
+    }, [allFilters]);
 
     return (
         <div className="filter-container">
@@ -106,17 +120,13 @@ function Filter() {
                 >
                     Filters
                     <span style={{ padding: '0.25em' }}>
-                        {showFilters ? (
-                            <UpChevron
-                                height={'0.75em'}
-                                fill={'white'}
-                            />
-                        ) : (
+                        { (
                             <DownChevron
+                                className={`rotate-${showFilters ? '180' : '0'}`}
                                 height={'0.75em'}
                                 fill={'white'}
                             />
-                        )}
+                        ) }
                     </span>
                 </h2>
             </div>
@@ -128,37 +138,58 @@ function Filter() {
                         Price Range?
                         <input
                             type="checkbox"
-                            checked={applyPrice}
-                            onChange={() => setApplyPrice(!applyPrice)}
+                            checked={allFilters.applyPriceRange}
+                            onChange={() =>
+                                setAllFilters((prev) => {
+                                    return {
+                                        ...prev,
+                                        applyPriceRange: !prev.applyPriceRange,
+                                    };
+                                })
+                            }
                         />
                     </h3>
                     <div
                         className={`filter-price ${
-                            !applyPrice && 'filter-hidden'
+                            !allFilters.applyPriceRange && 'filter-hidden'
                         }`}
                     >
                         <label>
-                            Minimum: ${priceMin}
+                            Minimum: ${allFilters.minPrice}
                             <input
                                 type="range"
                                 step={priceStep}
                                 onChange={(e) =>
-                                    setPriceMin(parseFloat(e.target.value))
+                                    setAllFilters((prev) => {
+                                        return {
+                                            ...prev,
+                                            minPrice: parseFloat(
+                                                e.target.value
+                                            ),
+                                        };
+                                    })
                                 }
-                                value={priceMin}
-                                max={priceMax - 5}
+                                value={allFilters.minPrice}
+                                max={allFilters.maxPrice - 5}
                             />
                         </label>
                         <label>
-                            Maximum: ${priceMax}
+                            Maximum: ${allFilters.maxPrice}
                             <input
                                 type="range"
                                 step={priceStep}
                                 onChange={(e) =>
-                                    setPriceMax(parseFloat(e.target.value))
+                                    setAllFilters((prev) => {
+                                        return {
+                                            ...prev,
+                                            maxPrice: parseFloat(
+                                                e.target.value
+                                            ),
+                                        };
+                                    })
                                 }
-                                value={priceMax}
-                                min={priceMin + priceStep}
+                                value={allFilters.maxPrice}
+                                min={allFilters.minPrice + priceStep}
                             />{' '}
                         </label>
                     </div>
@@ -168,8 +199,15 @@ function Filter() {
                         On Sale?
                         <input
                             type="checkbox"
-                            checked={onSale}
-                            onChange={() => setOnSale(!onSale)}
+                            checked={allFilters.onSale}
+                            onChange={() =>
+                                setAllFilters((prev) => {
+                                    return {
+                                        ...prev,
+                                        onSale: !prev.onSale,
+                                    };
+                                })
+                            }
                         />
                     </h3>
                 </div>
@@ -180,6 +218,22 @@ function Filter() {
                             <input
                                 type="checkbox"
                                 value={drink}
+                                checked={allFilters.drinks.includes(drink)}
+                                onClick={() =>
+                                    setAllFilters((prev) => {
+                                        const newDrinks =
+                                            allFilters.drinks.includes(drink)
+                                                ? prev.drinks.filter(
+                                                      (drinkType) =>
+                                                          drinkType !== drink
+                                                  )
+                                                : [...prev.drinks, drink];
+                                        return {
+                                            ...prev,
+                                            drinks: newDrinks,
+                                        };
+                                    })
+                                }
                             />
                             <span>{drink}</span>
                         </label>

@@ -9,23 +9,27 @@ function ShopListPage() {
     const products = productData as ListItem[];
     const [searchedProducts, setSearchedProducts] =
         useState<ListItem[]>(products);
+    const [filteredProducts, setFilteredProducts] =
+        useState<ListItem[]>(searchedProducts);
 
     return (
         <>
             <div className="container">
-                <div className="center row search-and-filter">
-                    <div className="half">
+                <div className="center search-and-filter">
+                   
                         <SearchBar
                             products={products}
                             returnProducts={setSearchedProducts}
                         />
-                    </div>
-                    <div className="half">
-                        <Filter />
-                    </div>
+                    
+                        <Filter
+                            products={products}
+                            returnProducts={setFilteredProducts}
+                        />
+                    
                 </div>
                 <div className="center">
-                    <ShoppingGrid products={searchedProducts} />
+                    <ShoppingGrid products={searchedProducts.filter((product) => filteredProducts.includes(product))} />
                 </div>
             </div>
         </>
