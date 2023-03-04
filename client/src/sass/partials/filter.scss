@@ -23,6 +23,7 @@
             padding: 0.5em 0;
             border-top-style: solid;
             border-color: white;
+            border-width: 0.5px;
 
             .title {
                 margin: 0;
@@ -43,12 +44,6 @@
                     max-height: 0;
                 }
             }
-        }
-
-        .filter-clear {
-            cursor: pointer;
-            margin: 0.25em;
-            text-decoration: underline;
         }
     }
 }

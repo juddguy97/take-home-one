@@ -36,6 +36,16 @@
         max-height: min-content;
         z-index: 1;
 
+        .clear-btn {
+            cursor: pointer;
+            margin: 0 0.25em 1em 0.25em;
+            text-decoration: underline;
+
+            &.reset {
+                margin: 1em 0.5em;
+            }
+        }
+
         > div {
             margin: auto;
             max-width: $largeScreen;

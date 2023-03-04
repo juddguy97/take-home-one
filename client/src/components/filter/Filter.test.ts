@@ -4,7 +4,7 @@ import {
     filterBySale,
     applyAllFilters,
     ApplicableFilters,
-} from './Filter';
+} from './FilterUtil';
 import productData from '../../assets/json/shopping-data.json';
 import { ListItem } from '../../interface/Interfaces';
 

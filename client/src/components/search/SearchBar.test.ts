@@ -1,4 +1,4 @@
-import { searchProducts } from './SearchBar';
+import { searchProducts } from './SearchBarUtil';
 import productData from '../../assets/json/shopping-data.json';
 import { ListItem } from '../../interface/Interfaces';
 
