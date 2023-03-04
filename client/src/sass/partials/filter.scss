@@ -3,10 +3,6 @@
     border-color: white;
 
     .filter-content {
-        -webkit-transition: max-height 0.5s;
-        -moz-transition: max-height 0.5s;
-        -ms-transition: max-height 0.5s;
-        -o-transition: max-height 0.5s;
         transition: max-height 0.5s;
         max-height: 400px;
         overflow: hidden;
@@ -37,6 +33,7 @@
             .filter-price {
                 display: flex;
                 flex-direction: column;
+                transition: max-height 0.5s;
                 max-height: 50px;
                 overflow: hidden;
 

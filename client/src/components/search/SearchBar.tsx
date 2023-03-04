@@ -14,47 +14,44 @@ function SearchBar(props: SearchBarProps) {
     useEffect(() => {
         if(searchCriteria !== appliedSearchTerm) setSearchCriteria(appliedSearchTerm);
     }, [appliedSearchTerm]);
-    
+
     return (
         <div className="search-container">
-            <div className="search-form">
-                <h3 className="search-title">Search</h3>
-                <span style={{ position: 'relative' }}>
-                    <input
-                        className="search-bar"
-                        type="text"
-                        style={{ margin: 0 }}
-                        value={searchCriteria}
-                        onChange={(e) => setSearchCriteria(e.target.value)}
-                        onKeyDown={(e) => {
-                            if (e.key === 'Enter')
-                                returnSearchCriteria(searchCriteria);
+            <h3 className="search-title">Search</h3>
+            <span className="search-bar">
+                <input
+                    className="search-textbox"
+                    type="text"
+                    value={searchCriteria}
+                    onChange={(e) => setSearchCriteria(e.target.value)}
+                    onKeyDown={(e) => {
+                        if (e.key === 'Enter')
+                            returnSearchCriteria(searchCriteria);
+                    }}
+                />
+                {searchCriteria.length > 0 && (
+                    <span
+                        className="search-clear"
+                        onClick={() => {
+                            setSearchCriteria('');
+                            returnSearchCriteria('');
                         }}
-                    />
-                    {searchCriteria.length > 0 && (
-                        <span
-                            className="search-clear"
-                            onClick={() => {
-                                setSearchCriteria('');
-                                returnSearchCriteria('');
-                            }}
-                        >
-                            <CrossIcon
-                                height={'0.75em'}
-                                fill={'lightGrey'}
-                            />
-                        </span>
-                    )}
-                </span>
-                <div
-                    className="search-btn"
-                    onClick={() => returnSearchCriteria(searchCriteria)}
-                >
-                    <SearchIcon
-                        height={'1em'}
-                        fill={'white'}
-                    />
-                </div>
+                    >
+                        <CrossIcon
+                            height={'0.75em'}
+                            fill={'lightGrey'}
+                        />
+                    </span>
+                )}
+            </span>
+            <div
+                className="search-btn"
+                onClick={() => returnSearchCriteria(searchCriteria)}
+            >
+                <SearchIcon
+                    height={'1em'}
+                    fill={'white'}
+                />
             </div>
         </div>
     );

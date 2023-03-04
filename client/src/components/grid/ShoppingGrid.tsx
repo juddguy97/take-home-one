@@ -13,17 +13,23 @@ interface ShoppingGridProps {
 function ShoppingGrid(props: ShoppingGridProps) {
     const { products } = props;
     return (
-        <div className="shopping-grid">
-            {products.length > 0 ? (
-                products.map((product: ListItem) => (
+        <>
+        {products.length > 0 ? <div className="shopping-grid">
+             
+                {products.map((product: ListItem) => (
                     <div className="shopping-grid-item">
                         <ShoppingItem product={product} />
                     </div>
-                ))
-            ) : (
-                <h2>No Results Found</h2>
+                ))}
+                </div>
+        
+             : (
+                <div className='no-results'>
+                    <h2>No Results Found</h2>
+                    <h3>Please adjust your search terms and filters</h3>
+                </div>
             )}
-        </div>
+        </>
     );
 }
 

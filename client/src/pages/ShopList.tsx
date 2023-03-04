@@ -15,7 +15,6 @@ function ShopListPage() {
     const products = productData as ListItem[];
     const [searchCriteria, setSearchCritiera] = useState<string>('');
     const [allFilters, setAllFilters] = useState<ApplicableFilters>(defaultFilter);
-
     const [finalProducts, setFinalProducts] = useState<ListItem[]>(products);
 
     const resetSearchAndFilter = () => {
@@ -44,7 +43,7 @@ function ShopListPage() {
                         <p className="clear-btn reset" onClick={resetSearchAndFilter}>Reset Search &amp; Filter</p>
                     </div>
                 </div>
-                <div className="center">
+                <div className="center grid-container">
                     <ShoppingGrid products={finalProducts} />
                 </div>
             </div>

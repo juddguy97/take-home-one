@@ -1,28 +1,29 @@
-.search-form {
+.search-container {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-}
-
-.search-title {
-    margin: 0;
-    padding: 0 0.25em;
-}
-
-.search-bar {
-    padding: 3px;
-}
-
-.search-btn {
-    padding: 0.25em 0 0 0.25em;
-    cursor: pointer;
-    width: 100%;
-}
-
-.search-container {
     border-bottom-style: solid;
     border-color: white;
     padding-bottom: 0.5em;
+
+    .search-title {
+        margin: 0;
+        padding: 0 0.25em;
+    }
+    .search-bar {
+        position: relative;
+
+        .search-textbox {
+            padding: 3px;
+            margin: 0;
+        }
+    }
+
+    .search-btn {
+        padding: 0.25em 0 0 0.25em;
+        cursor: pointer;
+        width: 100%;
+    }
 }
 
 .search-clear {

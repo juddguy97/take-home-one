@@ -6,12 +6,5 @@
 @import 'partials/shopListPage';
 
 body {
-    // background-image: linear-gradient($background-red, black);
-    background-color: gold;
-}
-
-@media screen and (max-width: 1000px) {
-    body {
-        padding: 0 0;
-    }
+    background-color: $background-color;
 }

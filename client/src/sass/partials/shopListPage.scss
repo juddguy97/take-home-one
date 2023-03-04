@@ -32,9 +32,11 @@
         justify-content: center;
         background-color: $primary;
         color: white;
-        padding: 5vh 0;
+        padding: 3vh 0 0 0;
         max-height: min-content;
         z-index: 1;
+        min-height: $headerMinHeight;
+        position: fixed;
 
         .clear-btn {
             cursor: pointer;
@@ -49,6 +51,22 @@
         > div {
             margin: auto;
             max-width: $largeScreen;
+        }
+    }
+
+    .grid-container {
+        margin-top: calc($headerMinHeight + 5vh);
+
+        .no-results {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+
+            > h2, h3 {
+                margin: 1em auto 0 auto;
+                word-wrap: normal;
+                text-align: center;
+            }
         }
     }
 }

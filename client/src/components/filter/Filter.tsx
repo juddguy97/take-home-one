@@ -64,7 +64,7 @@ function Filter(props: FilterProps) {
                     </h4>
                     <div
                         className={`filter-price ${
-                            !allFilters.applyPriceRange && 'filter-hidden'
+                            !allFilters.applyPriceRange ? 'filter-hidden' : ''
                         }`}
                     >
                         <label>
