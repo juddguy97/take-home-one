@@ -4,8 +4,7 @@ import { ReactComponent as SearchIcon } from '../../assets/icons/magnifying-glas
 import { ReactComponent as CrossIcon } from '../../assets/icons/circle-xmark-solid.svg';
 
 interface SearchBarProps {
-    products: ListItem[];
-    returnProducts: (products: ListItem[]) => void;
+    returnSearchCriteria: (crtieria: string) => void;
 }
 
 /**
@@ -28,7 +27,7 @@ export function searchProducts(criteria: string, products: ListItem[]) {
 }
 
 function SearchBar(props: SearchBarProps) {
-    const { products, returnProducts } = props;
+    const { returnSearchCriteria } = props;
     const [searchCriteria, setSearchCriteria] = useState<string>('');
     return (
         <div className="search-container">
@@ -43,39 +42,27 @@ function SearchBar(props: SearchBarProps) {
                         onChange={(e) => setSearchCriteria(e.target.value)}
                         onKeyDown={(e) => {
                             if (e.key === 'Enter')
-                                returnProducts(
-                                    searchProducts(searchCriteria, products)
-                                );
+                                returnSearchCriteria(searchCriteria);
                         }}
                     />
-                    { searchCriteria.length > 0 &&
-                    <span
-                        style={{
-                            position: 'absolute',
-                            right: '0',
-                            top: '0',
-                            padding: '0.1em 8px',
-                            fontStyle: 'normal',
-                            fontSize: '1.2em',
-                            userSelect: 'none',
-                            cursor: 'pointer',
-                        }}
-                        onClick={() => {
-                            setSearchCriteria('');
-                            returnProducts(searchProducts('', products));
-                        }}
-                    >
-                        <CrossIcon
-                            height={'0.75em'}
-                            fill={'lightGrey'}
-                        />
-                    </span>}
+                    {searchCriteria.length > 0 && (
+                        <span
+                            className="search-clear"
+                            onClick={() => {
+                                setSearchCriteria('');
+                                returnSearchCriteria('');
+                            }}
+                        >
+                            <CrossIcon
+                                height={'0.75em'}
+                                fill={'lightGrey'}
+                            />
+                        </span>
+                    )}
                 </span>
                 <div
                     className="search-btn"
-                    onClick={() =>
-                        returnProducts(searchProducts(searchCriteria, products))
-                    }
+                    onClick={() => returnSearchCriteria(searchCriteria)}
                 >
                     <SearchIcon
                         height={'1em'}

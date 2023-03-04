@@ -241,12 +241,7 @@ function Filter(props: FilterProps) {
                         </label>
                     ))}
                 </div>
-                <p
-                    className="filter-clear"
-                    
-                >
-                    Clear Filter
-                </p>
+                <p className="filter-clear">Clear Filter</p>
             </div>
         </div>
     );

@@ -24,3 +24,14 @@
     border-color: white;
     padding-bottom: 0.5em;
 }
+
+.search-clear {
+    position: absolute;
+    right: 0;
+    top: 0;
+    padding: 0.1em 8px;
+    font-style: normal;
+    font-size: 1.2em;
+    user-select: none;
+    cursor: pointer;
+}

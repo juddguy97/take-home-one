@@ -1,26 +1,30 @@
 import Filter from '../components/filter/Filter';
 import ShoppingGrid from '../components/grid/ShoppingGrid';
-import SearchBar from '../components/search/SearchBar';
+import SearchBar, { searchProducts } from '../components/search/SearchBar';
 import productData from '../assets/json/shopping-data.json';
 import { ListItem } from '../interface/Interfaces';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 function ShopListPage() {
     const products = productData as ListItem[];
+    const [searchCriteria, setSearchCritiera] = useState<string>('');
     const [searchedProducts, setSearchedProducts] =
         useState<ListItem[]>(products);
     const [filteredProducts, setFilteredProducts] =
         useState<ListItem[]>(searchedProducts);
+
+    const [finalProducts, setFinalProducts] = useState<ListItem[]>(products);
+
+    useEffect(() => {
+        setFinalProducts(searchProducts(searchCriteria, products));
+    }, [searchCriteria]);
 
     return (
         <>
             <div className="container">
                 <div className="center search-and-filter">
                     <div>
-                        <SearchBar
-                            products={products}
-                            returnProducts={setSearchedProducts}
-                        />
+                        <SearchBar returnSearchCriteria={setSearchCritiera} />
                         <Filter
                             products={products}
                             returnProducts={setFilteredProducts}
@@ -28,11 +32,7 @@ function ShopListPage() {
                     </div>
                 </div>
                 <div className="center">
-                    <ShoppingGrid
-                        products={searchedProducts.filter((product) =>
-                            filteredProducts.includes(product)
-                        )}
-                    />
+                    <ShoppingGrid products={finalProducts} />
                 </div>
             </div>
         </>
