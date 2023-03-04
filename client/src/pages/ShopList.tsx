@@ -16,20 +16,23 @@ function ShopListPage() {
         <>
             <div className="container">
                 <div className="center search-and-filter">
-                   
+                    <div>
                         <SearchBar
                             products={products}
                             returnProducts={setSearchedProducts}
                         />
-                    
                         <Filter
                             products={products}
                             returnProducts={setFilteredProducts}
                         />
-                    
+                    </div>
                 </div>
                 <div className="center">
-                    <ShoppingGrid products={searchedProducts.filter((product) => filteredProducts.includes(product))} />
+                    <ShoppingGrid
+                        products={searchedProducts.filter((product) =>
+                            filteredProducts.includes(product)
+                        )}
+                    />
                 </div>
             </div>
         </>

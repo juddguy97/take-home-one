@@ -1,47 +1,65 @@
-.filter-content {
-    -webkit-transition: max-height 0.5s;
-    -moz-transition: max-height 0.5s;
-    -ms-transition: max-height 0.5s;
-    -o-transition: max-height 0.5s;
-    transition: max-height 0.5s;
-    padding-top: 1em;
-    max-height: 400px;
-    overflow: hidden;
+.filter-container {
+    border-bottom-style: solid;
+    border-color: white;
 
-    .filter-item {
-        display: flex;
-        flex-direction: column;
-        margin-bottom: 1em;
+    .filter-content {
+        -webkit-transition: max-height 0.5s;
+        -moz-transition: max-height 0.5s;
+        -ms-transition: max-height 0.5s;
+        -o-transition: max-height 0.5s;
+        transition: max-height 0.5s;
+        max-height: 400px;
+        overflow: hidden;
+        padding: 0 0.25em;
 
-        .title {
-            margin: 0;
+        &.filter-hidden {
+            max-height: 0;
+            overflow: hidden;
         }
 
-        .multiple-checkbox {
-            display: grid;
-            grid-template-columns: 'checkbox-name checkbox-input';
-        }
-
-        .filter-price {
+        .filter-item {
             display: flex;
             flex-direction: column;
-            max-height: 50px;
-            overflow: hidden;
+            padding: 0.5em 0;
+            border-top-style: solid;
+            border-color: white;
 
-            &.filter-hidden {
-                max-height: 0;
+            .title {
+                margin: 0;
+            }
+
+            .multiple-checkbox {
+                display: grid;
+                grid-template-columns: 'checkbox-name checkbox-input';
+            }
+
+            .filter-price {
+                display: flex;
+                flex-direction: column;
+                max-height: 50px;
+                overflow: hidden;
+
+                &.filter-hidden {
+                    max-height: 0;
+                }
             }
         }
-    }
-}
 
-.filter-hidden {
-    max-height: 0;
+        .filter-clear {
+            cursor: pointer;
+            margin: 0.25em;
+            text-decoration: underline;
+        }
+    }
 }
 
 .filter-toggle {
     cursor: pointer;
     margin: 0;
+    display: flex;
+    padding: 0.25em;
+    justify-content: space-between;
+    align-items: center;
     .rotate-180 {
         transform: rotate(-180deg);
         transition: transform 0.25s linear;
@@ -51,5 +69,3 @@
         transition: transform 0.25s linear;
     }
 }
-
-

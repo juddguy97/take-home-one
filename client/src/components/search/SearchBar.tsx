@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { ListItem } from '../../interface/Interfaces';
 import { ReactComponent as SearchIcon } from '../../assets/icons/magnifying-glass-solid.svg';
+import { ReactComponent as CrossIcon } from '../../assets/icons/circle-xmark-solid.svg';
 
 interface SearchBarProps {
     products: ListItem[];
@@ -30,22 +31,46 @@ function SearchBar(props: SearchBarProps) {
     const { products, returnProducts } = props;
     const [searchCriteria, setSearchCriteria] = useState<string>('');
     return (
-        <div>
+        <div className="search-container">
             <div className="search-form">
                 <h3 className="search-title">Search</h3>
-                <input
-                    className="search-bar"
-                    type="text"
-                    style={{ margin: 0 }}
-                    value={searchCriteria}
-                    onChange={(e) => setSearchCriteria(e.target.value)}
-                    onKeyDown={(e) => {
-                        if (e.key === 'Enter')
-                            returnProducts(
-                                searchProducts(searchCriteria, products)
-                            );
-                    }}
-                />
+                <span style={{ position: 'relative' }}>
+                    <input
+                        className="search-bar"
+                        type="text"
+                        style={{ margin: 0 }}
+                        value={searchCriteria}
+                        onChange={(e) => setSearchCriteria(e.target.value)}
+                        onKeyDown={(e) => {
+                            if (e.key === 'Enter')
+                                returnProducts(
+                                    searchProducts(searchCriteria, products)
+                                );
+                        }}
+                    />
+                    { searchCriteria.length > 0 &&
+                    <span
+                        style={{
+                            position: 'absolute',
+                            right: '0',
+                            top: '0',
+                            padding: '0.1em 8px',
+                            fontStyle: 'normal',
+                            fontSize: '1.2em',
+                            userSelect: 'none',
+                            cursor: 'pointer',
+                        }}
+                        onClick={() => {
+                            setSearchCriteria('');
+                            returnProducts(searchProducts('', products));
+                        }}
+                    >
+                        <CrossIcon
+                            height={'0.75em'}
+                            fill={'lightGrey'}
+                        />
+                    </span>}
+                </span>
                 <div
                     className="search-btn"
                     onClick={() =>
@@ -58,15 +83,12 @@ function SearchBar(props: SearchBarProps) {
                     />
                 </div>
             </div>
-            <p
+            {/* <p
                 className="search-clear"
-                onClick={() => {
-                    setSearchCriteria('');
-                    returnProducts(searchProducts('', products));
-                }}
+                
             >
                 Clear Search
-            </p>
+            </p> */}
         </div>
     );
 }

@@ -1,5 +1,12 @@
+// Color variables to use throughout site
 $primary: #00a14b;
 $background-red: #ad0d12;
 
-$medium: 640px;
-$large: 1008px;
+// Screen size thresholds
+$mediumScreen: 640px;
+$largeScreen: 1250px;
+
+// Item size per threshold
+$itemWidth: 300px;
+$itemHeight: 500px;
+$imgHeight: 300px;

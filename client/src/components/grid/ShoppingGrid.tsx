@@ -15,11 +15,11 @@ function ShoppingGrid(props: ShoppingGridProps) {
     return (
         <div className="shopping-grid">
             {products.length > 0 ? (
-                products.map((product: ListItem) => 
-                    <div className='shopping-grid-item'>
+                products.map((product: ListItem) => (
+                    <div className="shopping-grid-item">
                         <ShoppingItem product={product} />
                     </div>
-                )
+                ))
             ) : (
                 <h2>No Results Found</h2>
             )}

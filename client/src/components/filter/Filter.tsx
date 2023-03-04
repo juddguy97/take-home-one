@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import { ReactComponent as UpChevron } from '../../assets/icons/chevron-up-solid.svg';
 import { ReactComponent as DownChevron } from '../../assets/icons/chevron-down-solid.svg';
 import { DrinkTypes, drinkTypes, ListItem } from '../../interface/Interfaces';
 
@@ -97,7 +96,6 @@ export function applyAllFilters(
 function Filter(props: FilterProps) {
     const { products, returnProducts } = props;
     const [showFilters, setShowFilters] = useState<boolean>(false);
-    const [applyPrice, setApplyPrice] = useState<boolean>(false);
     const [allFilters, setAllFilters] = useState<ApplicableFilters>({
         applyPriceRange: false,
         maxPrice: 100,
@@ -114,27 +112,31 @@ function Filter(props: FilterProps) {
     return (
         <div className="filter-container">
             <div>
-                <h2
+                <h3
                     className="filter-toggle"
                     onClick={() => setShowFilters(!showFilters)}
                 >
                     Filters
                     <span style={{ padding: '0.25em' }}>
-                        { (
+                        {
                             <DownChevron
-                                className={`rotate-${showFilters ? '180' : '0'}`}
-                                height={'0.75em'}
+                                className={`rotate-${
+                                    showFilters ? '180' : '0'
+                                }`}
+                                height={'0.5em'}
                                 fill={'white'}
                             />
-                        ) }
+                        }
                     </span>
-                </h2>
+                </h3>
             </div>
             <div
-                className={`filter-content ${!showFilters && 'filter-hidden'} `}
+                className={`filter-content ${
+                    !showFilters ? 'filter-hidden' : ''
+                } `}
             >
                 <div className="filter-item">
-                    <h3 className="title">
+                    <h4 className="title">
                         Price Range?
                         <input
                             type="checkbox"
@@ -148,7 +150,7 @@ function Filter(props: FilterProps) {
                                 })
                             }
                         />
-                    </h3>
+                    </h4>
                     <div
                         className={`filter-price ${
                             !allFilters.applyPriceRange && 'filter-hidden'
@@ -195,7 +197,7 @@ function Filter(props: FilterProps) {
                     </div>
                 </div>
                 <div className="filter-item">
-                    <h3 className="title">
+                    <h4 className="title">
                         On Sale?
                         <input
                             type="checkbox"
@@ -209,10 +211,10 @@ function Filter(props: FilterProps) {
                                 })
                             }
                         />
-                    </h3>
+                    </h4>
                 </div>
                 <div className="filter-item">
-                    <h3 className="title">Drink Type?</h3>
+                    <h4 className="title">Drink Type?</h4>
                     {drinkTypes.map((drink: string) => (
                         <label>
                             <input
@@ -239,6 +241,12 @@ function Filter(props: FilterProps) {
                         </label>
                     ))}
                 </div>
+                <p
+                    className="filter-clear"
+                    
+                >
+                    Clear Filter
+                </p>
             </div>
         </div>
     );

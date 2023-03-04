@@ -26,20 +26,19 @@
 
     .search-and-filter {
         top: 0;
-        display: flex;
-        justify-content: space-evenly;
         left: 0;
         width: 100%;
+        flex-direction: column;
+        justify-content: center;
         background-color: $primary;
         color: white;
-        padding: 4vh 0;
+        padding: 5vh 0;
         max-height: min-content;
         z-index: 1;
-    }
 
-    @media screen and (max-width: 1000px) {
-        .search-and-filter {
-            flex-direction: column;
+        > div {
+            margin: auto;
+            max-width: $largeScreen;
         }
     }
 }
