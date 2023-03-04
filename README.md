@@ -21,5 +21,5 @@ To run the site, please follow these steps:
 1. From the root folder, change directory to the `client` folder - `cd client`
 2. Install dependencies - `yarn`
 3. Start the site - `yarn start`
-4. By default, the site will be available at (localhost:3000)
+4. By default, the site will be available at localhost:3000
 5. To run unit tests, run `yarn test`
